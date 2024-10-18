@@ -1,0 +1,26 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Doctor from './components/Doctor';
+import Researcher from './components/Researcher';
+import Login from './components/Login';
+import './App.css';
+
+function App() {
+  return (
+    <Router>
+      <div className="app">
+        <h1>Patient Clustering and Research Portal</h1>
+        <nav>
+          <Link to="/login">Login</Link> | <Link to="/doctor">Doctor</Link> | <Link to="/researcher">Researcher</Link>
+        </nav>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/doctor" element={<Doctor />} />
+          <Route path="/researcher" element={<Researcher />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
