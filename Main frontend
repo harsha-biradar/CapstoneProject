@@ -1,26 +1,19 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Doctor from './components/Doctor';
-import Researcher from './components/Researcher';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Login';
-import './App.css';
+import DoctorInterface from './components/DoctorInterface';
+import ResearcherInterface from './components/ResearcherInterface';
 
-function App() {
+const App = () => {
   return (
     <Router>
-      <div className="app">
-        <h1>Patient Clustering and Research Portal</h1>
-        <nav>
-          <Link to="/login">Login</Link> | <Link to="/doctor">Doctor</Link> | <Link to="/researcher">Researcher</Link>
-        </nav>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/doctor" element={<Doctor />} />
-          <Route path="/researcher" element={<Researcher />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/doctor-dashboard" element={<DoctorInterface />} />
+        <Route path="/researcher-dashboard" element={<ResearcherInterface />} />
+      </Routes>
     </Router>
   );
-}
+};
 
 export default App;
