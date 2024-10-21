@@ -1,27 +1,64 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Login() {
-  const [role, setRole] = useState('');
+const mockUsers = [
+  { username: 'doctor1', password: 'pass123', role: 'doctor' },
+  { username: 'researcher1', password: 'pass456', role: 'researcher' },
+];
+
+const Login = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (role === 'Doctor') navigate('/doctor');
-    else if (role === 'Researcher') navigate('/researcher');
-    else alert('Please select a valid role.');
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    // Check if the user exists with the correct role and credentials
+    const user = mockUsers.find(
+      (u) => u.username === username && u.password === password
+    );
+
+    if (user) {
+      console.log(`Login successful! Role: ${user.role}`);
+      // Redirect based on user role
+      if (user.role === 'doctor') {
+        navigate('/doctor-dashboard');
+      } else if (user.role === 'researcher') {
+        navigate('/researcher-dashboard');
+      } else {
+        setError('Invalid user role. Please contact support.');
+      }
+    } else {
+      setError('Invalid credentials. Please try again.');
+    }
   };
 
   return (
-    <div className="login">
+    <div className="login-container">
       <h2>Login</h2>
-      <select onChange={(e) => setRole(e.target.value)}>
-        <option value="">Select Role</option>
-        <option value="Doctor">Doctor</option>
-        <option value="Researcher">Researcher</option>
-      </select>
-      <button onClick={handleLogin}>Login</button>
+      <form onSubmit={handleLogin}>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        /><br></br>
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        /><br></br>
+        <button type="submit">Login</button>
+      </form>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
-}
+};
 
 export default Login;
+
