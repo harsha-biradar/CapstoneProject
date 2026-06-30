@@ -1,0 +1,19 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './components/Login';
+import DoctorInterface from './components/DoctorInterface';
+import ResearcherInterface from './components/ResearcherInterface';
+
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/doctor-dashboard" element={<DoctorInterface />} />
+        <Route path="/researcher-dashboard" element={<ResearcherInterface />} />
+      </Routes>
+    </Router>
+  );
+};
+
+export default App;
